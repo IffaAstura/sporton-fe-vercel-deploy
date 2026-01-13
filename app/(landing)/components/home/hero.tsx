@@ -21,7 +21,7 @@ const HeroSection = () => {
                             Explore More <FiFastForward/>
                         </Button>
                         <Button variant="ghost">
-                            Watch Video <Image src="/image/icon-play-video.svg" alt="icon play video" width={29} height={29}/>
+                            Watch Video{" "}<Image src="/image/icon-play-video.svg" alt="icon play video" width={29} height={29}/>
                         </Button>
                     </div>
                 </div>
