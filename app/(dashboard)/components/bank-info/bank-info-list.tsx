@@ -25,7 +25,7 @@ const BankInfoList = () => {
                 <div className="bg-white rounded-lg border border-gray-200" key={index}>
                     <div className="flex justify-between p-5">
                         <div className="flex gap-2 items-center">
-                            <div className="bg-blue-50 text-blue-600 rounded w-12 h-12 justify-center items-center">
+                            <div className="bg-blue-50 text-blue-600 rounded w-12 h-12 flex justify-center items-center">
                                 <FiCreditCard size={24}/>
                             </div>
                             <div>
