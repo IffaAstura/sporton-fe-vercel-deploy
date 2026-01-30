@@ -1,3 +1,4 @@
+import { Transaction } from "@/app/types";
 import priceFormatter from "@/app/utils/price-formatter";
 import { FiEye } from "react-icons/fi";
 
@@ -25,11 +26,12 @@ const transactionsData = [
     },
 ]
 
-type TTransactionsTable = {
-   onViewDetails: () => void; 
-};;
+type TTransactionTableProps = {
+    onViewDetails: (transaction: Transaction) => void;
+    transactions: Transaction[]
+};
 
-const TransactionsTable = ({onViewDetails}: TTransactionsTable) => {
+const TransactionsTable = ({onViewDetails, transactions}: TTransactionTableProps) => {
     const getStatusColor = (status: string) => {
         switch (status.toLocaleLowerCase()) {
             case "pending":
@@ -55,17 +57,25 @@ const TransactionsTable = ({onViewDetails}: TTransactionsTable) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {transactionsData.map((data, index) => (
-                        <tr key={index} className="border-b border-gray-200 last:border-b-0">
-                            <td className="px-6 py-4 font-medium">{data.date}</td>
-                            <td className="px-6 py-4 font-medium">{data.customer}</td>
-                            <td className="px-6 py-4 font-medium">{data.contact}</td>
-                            <td className="px-6 py-4 font-medium">{priceFormatter(data.total)}</td>
+                    {transactions.map((data) => (
+                        <tr key={data._id} className="border-b border-gray-200 last:border-b-0">
+                            <td className="px-6 py-4 font-medium">
+                                {new Date(data.createdAt).toLocaleDateString("id-ID", {
+                                    day: "numeric",
+                                    month: "short",
+                                    year: "numeric",
+                                    hour: "2-digit",
+                                    minute: "2-digit"
+                                })}
+                            </td>
+                            <td className="px-6 py-4 font-medium">{data.customerName}</td>
+                            <td className="px-6 py-4 font-medium">{data.customerContact}</td>
+                            <td className="px-6 py-4 font-medium">{priceFormatter(parseInt(data.totalPayment))}</td>
                             <td className="px-6 py-4 font-medium">
                                 <div className={`px-4 py-1 rounded-full border text-center w-fit text-sm uppercase ${getStatusColor(data.status)}`}>{data.status}</div>
                             </td>
                             <td className="px-6 py-7.5 self-center flex gap-3 text-gray-600 items-center">
-                                <button onClick={onViewDetails} className="flex items-center gap-2 cursor-pointer hover:bg-gray-100 py-1 px-2 rounded-md"><FiEye size={18}/>View Details</button>
+                                <button onClick={() => onViewDetails(data)} className="flex items-center gap-2 cursor-pointer hover:bg-gray-100 py-1 px-2 rounded-md"><FiEye size={18}/>View Details</button>
                             </td>
                         </tr>
                     ))}
