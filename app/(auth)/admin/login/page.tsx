@@ -1,5 +1,5 @@
 "use client";
-
+ 
 import Button from "@/app/(landing)/components/ui/button";
 import { login } from "@/app/services/auth.service";
 import Image from "next/image";
